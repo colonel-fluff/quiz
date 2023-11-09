@@ -1,17 +1,15 @@
 #BlueJ class context
 comment0.target=Animation
 comment1.params=
-comment1.target=void\ Starten()
+comment1.target=void\ PunkteLoss()
 comment2.params=
-comment2.target=void\ zeigeFrage1()
+comment2.target=void\ PunkteGain()
 comment3.params=
-comment3.target=void\ PunkteLoss()
+comment3.target=void\ zeigeFrage1()
 comment4.params=
-comment4.target=void\ PunkteGain()
+comment4.target=void\ zeigeFrage2()
 comment5.params=
-comment5.target=void\ zeigeAntwort1()
-comment6.params=
-comment6.target=void\ zeigeFrage2()
-comment7.params=e
-comment7.target=void\ keyReleased(java.awt.event.KeyEvent)
-numComments=8
+comment5.target=void\ zeigeFrage3()
+comment6.params=e
+comment6.target=void\ keyReleased(java.awt.event.KeyEvent)
+numComments=7

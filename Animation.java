@@ -2,117 +2,131 @@ import java.awt.event.*;
 
 class Animation extends Methodenbox
 {
-    void Starten()
-    {
-    while(QuizPunkte== -1)
-    {
-        fuegeTextHinzu("StartText", "Drücke eine Taste, um zu Starten", 200, 200, 300, 20);
-        warte(2);
-        entferneText("StartText");
-        warte(2);
-    }
-    }
-    int screenNummer; 
-    
-    
-    void zeigeFrage1()
-    {
-        fuegeTextHinzu("QuizPunkte ","Deine Punkte: ", 200, 50, 300, 20);
-        fuegeTextHinzu("Frage","In einem Computer gibt es" , 200, 100, 300, 20);
-        fuegeTextHinzu("Antwort1","Tippe a für: Chips" , 200, 150, 300, 20);
-        fuegeTextHinzu("Antwort2","Tippe b für: Dips" , 200, 200, 300, 20);
-        fuegeTextHinzu("Antwort3","Tippe c für: Flips" , 200, 250, 300, 20);
-        QuizPunkte = QuizPunkte + 1;
-        
-        
-        screenNummer = 1;
-        
-    }
+    private int screenNummer = 0;
+    private int QuizPunkte = 0;
+    private String cPunkte;
     
     void PunkteLoss()
     {
-        if (QuizPunkte >=1)
+        if (QuizPunkte > 1)
                 {
-                    QuizPunkte = QuizPunkte -1;
+                    QuizPunkte = QuizPunkte - 1;
                 }
-                else 
+        else 
                 {
                    QuizPunkte = QuizPunkte; 
                 }
+                
+        cPunkte = Integer.toString(QuizPunkte);
+        ersetzeText("Punkte", cPunkte);
     }
     
     void PunkteGain()
     {
-        if (QuizPunkte >=1)
+        if (QuizPunkte >= 0)
                 {
-                    QuizPunkte = QuizPunkte +1;
+                    QuizPunkte = QuizPunkte +  1;
                 }
-    }
-    void zeigeAntwort1()
-    {
-        screenNummer = 2;
-    }
 
-            
+        cPunkte = Integer.toString(QuizPunkte);
+        ersetzeText("Punkte", cPunkte);
+    }
+    
+    void zeigeFrage1()
+    {
+       fuegeTextHinzu("Info","Es geht los! Deine Punkte:" ,  200, 50, 300, 20);
+       cPunkte = Integer.toString(QuizPunkte);
+    fuegeTextHinzu("Punkte", cPunkte, 200, 100, 300, 20);
+        fuegeTextHinzu("Frage","Frage: In einem Computer gibt es..." , 200, 150, 300, 20);
+        fuegeTextHinzu("Antwort1","Tippe a für: Chips" , 200, 200, 300, 20);
+        fuegeTextHinzu("Antwort2","Tippe b für: Dips" , 200, 250, 300, 20);
+        fuegeTextHinzu("Antwort3","Tippe c für: Flips" , 200, 300, 300, 20);
+        screenNummer = 1;
+    }
+    
     void zeigeFrage2()
     {
-        ersetzeText("QuizPunkte ","-");
-        ersetzeText("Frage", "Frage 2...");
-        fuegeTextHinzu("Antwort1", "...", 200, 150, 200, 20);
-        fuegeTextHinzu("Antwort2", "...", 200, 200, 200, 20);
-        fuegeTextHinzu("Antwort3", "...", 200, 250, 200, 20);
-    }
-    
-    
-    public int OuizPunkte; 
-    public int QuizPunkte = -1;
+        ersetzeText("Info", "naechste Frage. Deine Punkte:");
+        ersetzeText("Punkte", cPunkte);
+        ersetzeText("Frage", "Was ist 1+1?");
+        ersetzeText("Antwort1", "tippe 1 für: 1");
+        ersetzeText("Antwort2", "tippe 2 für: 2");
+        ersetzeText("Antwort3", "tippe 3 für: 3");
         
+        screenNummer = 2;
+    }
+   
+
+    void zeigeFrage3()
+    {
+        ersetzeText("Info", "letzte Frage. Deine Punkte:");
+        ersetzeText("Punkte", cPunkte);
+        ersetzeText("Frage", "Warum ist die Banane krumm?");
+        ersetzeText("Antwort1", "weil halt: w");
+        ersetzeText("Antwort2", "Ja: j");
+        ersetzeText("Antwort3", "Velleicht: v");
+        
+        screenNummer = 3;
+    }
+
     
     @Override public void keyReleased(KeyEvent e)
     {
         char buchstabe;
         buchstabe = e.getKeyChar();
+                        
         if(screenNummer == 1)
-        {
+        {   
             if(buchstabe == 'a')
             {
-                ersetzeText("Antwort1", "Drücke n Für die Nächste Frage");
-                entferneText("Antwort2");
-                entferneText("Antwort3");
-                ersetzeText("Frage" , "Diese Antort ist Richtig");
+                ersetzeText("Info", "Diese Antwort ist Richtig. +1 Punkte");
                 PunkteGain();
             }
+            else {
+                
+               ersetzeText("Info", "Diese Antwort ist Falsch. -1 Punkte");
+               PunkteLoss();
+            }
+            
+            screenNummer = 2;
+            zeigeFrage2();
+        }
+        
+        else if(screenNummer == 2)
+            {
+            if(buchstabe == '2')
+            {
+               ersetzeText("Info", "Diese Antwort ist Richtig. +1 Punkte");
+               PunkteGain();
+            } 
+            else {
+                
+               ersetzeText("Info", "Diese Antwort ist Falsch. -1 Punkte");
+               PunkteLoss();
+            }
+            
+            screenNummer = 3;
+            zeigeFrage3();
+        }
+        
+        else if(screenNummer == 3)
+        {
+            if(buchstabe == 'w')
+            {
+                ersetzeText("Info", "Diese Antwort ist Richtig. +1 Punkte");
+                PunkteGain();
+            } 
             if(buchstabe == 'b')
             {
-               entferneText("Antwort1");
-               entferneText("Antwort2");
-               entferneText("Antwort3");
-               ersetzeText("Frage" , "Diese Antort ist Flasch, richtig wäre a");
+               ersetzeText("Info", "Diese Antwort ist Falsch. -1 Punkte");
                PunkteLoss();
             }
             if(buchstabe == 'c')
             {
-               entferneText("Antwort1");
-               entferneText("Antwort2");
-               entferneText("Antwort3");
-               ersetzeText("Frage" , "Diese Antort ist Flasch, richtig wäre a");
+               ersetzeText("Info", "Diese Antwort ist Falsch. -1 Punkte");
                PunkteLoss();
             }
-            zeigeAntwort1();
         }
-        else
-        {
-            if(screenNummer == 2)
-            {
-                zeigeFrage2();
-            }
-        }
-        
-        if(buchstabe == buchstabe)
-        {
-               zeigeFrage1();
-            }
+    }
 
     }
-  
-}
