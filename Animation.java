@@ -65,7 +65,7 @@ class Animation extends Methodenbox
         ersetzeText("Antwort1", "weil halt: w");
         ersetzeText("Antwort2", "Ja: j");
         ersetzeText("Antwort3", "Velleicht: v");
-        
+        fuegeTextHinzu("Ausgang","Waehle b zum beenden", 200, 350, 300, 20);
         screenNummer = 3;
     }
 
@@ -126,6 +126,8 @@ class Animation extends Methodenbox
                ersetzeText("Info", "Diese Antwort ist Falsch. -1 Punkte");
                PunkteLoss();
             }
+            if(buchstabe == 'b')
+            { System.exit(0); }
         }
     }
 
